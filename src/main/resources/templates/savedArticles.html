@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles</title>
+</head>
+<body>
+<form method="get" action="/articles">
+    <input type="submit" value="Wyświetl wszystkie artykuły">
+</form>
+<form method="get" action="/articles/remove">
+    Id: <input type="number" name="id">
+    <input type="submit" value="Usuń artykul">
+</form>
+<div th:each="article : ${articles}">
+    <form method="get" th:id="${article.title}" th:object="${article}" th:action="@{/articles/update}">
+        <input type="text" hidden="hidden" name="id" th:value="*{id}">
+        <h2 th:text="*{id}"></h2>
+        <h3>Źródło: </h3>
+        <textarea style="width: 100%;" th:form="${article.title}" name="source" th:text="*{source}"></textarea>
+        <h3>Tytuł: </h3>
+        <textarea rows="4" style="width: 100%;" th:form="${article.title}" name="title" th:text="*{title}"></textarea>
+        <h3>Zdjęcie: </h3>
+        <input type="text" hidden="hidden" name="urlImage" th:value="*{urlImage}">
+        <img style="max-height: 400px;" th:form="${article.title}" th:src="*{urlImage}"/>
+        <h3>Opis: </h3>
+        <textarea rows="4" style="width: 100%" th:form="${article.title}" name="description" th:text="${article.description}"></textarea>
+        <h3>Zawartość: </h3>
+        <textarea rows="4" style="width: 100%" th:form="${article.title}" name="content" th:text="${article.content}"></textarea>
+        <h3>Data publikacji: </h3>
+        <textarea rows="4" style="width: 100%" th:form="${article.title}" name="publishedAt" th:text="${article.publishedAt}"></textarea>
+        <h3>Autor: </h3>
+        <textarea rows="4" style="width: 100%" th:form="${article.title}" name="author" th:text="${article.author}"></textarea>
+        <br>
+        <input style="width: 5.2%" type="submit" value="Aktualizuj">
+    </form>
+</div>
+</body>
+</html>
